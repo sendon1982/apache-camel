@@ -56,8 +56,7 @@ public class OrderRepositoryTest extends BaseJpaRepositoryTest {
    @Test
    public void test_findOrdersByOrderStatusOrderByTimeOrderPlacedAscFailInvalidStatus()
          throws Exception {
-      Iterable<OrderEntity> orders = orderRepository.findByStatus("whefiehwi",
-            new PageRequest(0, 5));
+      Iterable<OrderEntity> orders = orderRepository.findByStatus("whefiehwi", new PageRequest(0, 5));
       assertNotNull(orders);
       assertFalse(orders.iterator().hasNext());
    }
@@ -65,13 +64,12 @@ public class OrderRepositoryTest extends BaseJpaRepositoryTest {
    @Test
    public void test_updateStatusSuccess() throws Exception {
       List<Long> orderIds = new ArrayList<Long>();
-      orderIds.add(1L);
-      orderIds.add(2L);
-      orderIds.add(3L);
-      orderIds.add(4L);
+      orderIds.add(8L);
+      orderIds.add(9L);
       int count = orderRepository.updateStatus(
             OrderStatus.PROCESSING.getCode(),
             new Date(System.currentTimeMillis()), orderIds);
-      assertTrue(count == 4);
+      
+      assertTrue(count == 2);
    }
 }

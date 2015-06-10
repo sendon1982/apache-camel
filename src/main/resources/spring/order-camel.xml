@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+
+	<!-- here we define a spring bean that is our container wide interceptor 
+		its important to notice that the class ContainerWideInterceptor implements 
+		org.apache.camel.spi.InterceptStrategy that allows us to plugin our interceptors 
+		Camel will at startup automatic look for any beans in spring registry that 
+		is an instance of org.apache.camel.spi.InterceptStrategy and add it as interceptor 
+		to all its routes. Using this we are capable of defining container wide interceptors 
+		that gets used in all camel contests we define with spring -->
+	<bean id="myInterceptor" class="org.apache.camel.spring.interceptor.ContainerWideInterceptor" />
+
+	<!-- here we have the 1st CamelContext -->
+	<camelContext id="camel1" xmlns="http://camel.apache.org/schema/spring">
+		<route>
+			<from uri="direct:one" />
+			<to uri="mock:result" />
+		</route>
+	</camelContext>
+
+	<!-- and there we have the 2nd CamelContext -->
+	<camelContext id="camel2" xmlns="http://camel.apache.org/schema/spring">
+		<route>
+			<from uri="direct:two" />
+			<to uri="log:two" />
+			<to uri="mock:result" />
+		</route>
+	</camelContext>
+
+</beans>          
