@@ -11,6 +11,7 @@ import org.springframework.context.annotation.*;
 @Configuration
 @ComponentScan(basePackages = "com.pluralsight.orderfulfillment")
 @PropertySource("classpath:order-fulfillment.properties")
-public class Application {
+public class Application
+{
 
 }
