@@ -6,11 +6,6 @@
 
 -- Role: orders
 -- Password: orders
-CREATE ROLE orders LOGIN
-  ENCRYPTED PASSWORD 'md55f038b5aa5a392661ff3a8494829bd9e'
-  NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION;
-COMMENT ON ROLE orders IS 'Orders role';
-
 -- Database: orders
 CREATE DATABASE orders
   WITH OWNER = orders

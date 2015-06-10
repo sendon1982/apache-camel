@@ -1,16 +1,11 @@
 package com.pluralsight.orderfulfillment.test;
 
-import javax.sql.DataSource;
-
-import org.apache.commons.dbcp.BasicDataSource;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 @Configuration
 public class TestIntegration
 {
-	@Bean
+/*	@Bean
 	public DataSource dataSource()
 	{
 		BasicDataSource dataSource = new BasicDataSource();
@@ -34,5 +29,5 @@ public class TestIntegration
 		derby.setJdbcTemplate(jdbcTemplate());
 		return derby;
 	}
-
+*/
 }

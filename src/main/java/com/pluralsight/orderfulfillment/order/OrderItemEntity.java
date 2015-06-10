@@ -16,7 +16,6 @@ import com.pluralsight.orderfulfillment.catalog.*;
  */
 @Entity
 @Table(name = "orderItem")
-@SequenceGenerator(name = "orderitem_id_seq", sequenceName = "orderitem_id_seq")
 public class OrderItemEntity implements Serializable {
 
    private static final long serialVersionUID = -3950813201243788920L;
@@ -59,7 +58,7 @@ public class OrderItemEntity implements Serializable {
     */
    @Id
    @Column(name = "id")
-   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orderitem_id_seq")
+   @GeneratedValue(strategy = GenerationType.AUTO)
    public long getId() {
       return id;
    }
