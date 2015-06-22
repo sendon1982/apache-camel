@@ -80,8 +80,7 @@ public class DefaultOrderService implements OrderService
 
 		try
 		{
-			populateOrderDetails(orders,
-					orderRepository.findByStatus(orderStatus.getCode(), new PageRequest(0, fetchSize)));
+			populateOrderDetails(orders, orderRepository.findByStatus(orderStatus.getCode(), new PageRequest(0, fetchSize)));
 		}
 		catch (Exception e)
 		{
@@ -120,9 +119,7 @@ public class DefaultOrderService implements OrderService
 		}
 		catch (Exception e)
 		{
-			log.error(
-					"An error occurred while retrieving order items for the order id |" + id + "|: " + e.getMessage(),
-					e);
+			log.error("An error occurred while retrieving order items for the order id |" + id + "|: " + e.getMessage(), e);
 		}
 		return orderItems;
 	}
@@ -139,30 +136,36 @@ public class DefaultOrderService implements OrderService
 		{
 			OrderEntity entity = iterator.next();
 			CustomerEntity customerEntity = entity.getCustomer();
-			Customer customer = new Customer(customerEntity.getId(), customerEntity.getFirstName(),
-					customerEntity.getLastName(), customerEntity.getEmail());
-			orders.add(new Order(entity.getId(), customer, entity.getOrderNumber(), entity.getTimeOrderPlaced(), entity
-					.getLastUpdate(), OrderStatus.getOrderStatusByCode(entity.getStatus()).getDescription()));
+			Customer customer = new Customer(customerEntity.getId(), customerEntity.getFirstName(),customerEntity.getLastName(), customerEntity.getEmail());
+			orders.add(new Order(entity.getId(), customer, entity.getOrderNumber(), entity.getTimeOrderPlaced(), entity.getLastUpdate(), OrderStatus.getOrderStatusByCode(entity.getStatus()).getDescription()));
 		}
 	}
 
+	/**
+	 * Populate OrderItem list for Order
+	 * 
+	 * @param orderItems
+	 * @param orderItemEntities
+	 */
 	private void populateOrderItems(List<OrderItem> orderItems, Iterable<OrderItemEntity> orderItemEntities)
 	{
 		for (Iterator<OrderItemEntity> iterator = orderItemEntities.iterator(); iterator.hasNext();)
 		{
 			OrderItemEntity entity = iterator.next();
 			CatalogItemEntity catalogItemEntity = entity.getCatalogItem();
-			CatalogItem catalogItem = new CatalogItem(catalogItemEntity.getId(), catalogItemEntity.getItemNumber(),
-					catalogItemEntity.getItemName(), catalogItemEntity.getItemType());
-			orderItems.add(new OrderItem(entity.getId(), catalogItem, entity.getStatus(), entity.getPrice(), entity
-					.getLastUpdate(), entity.getQuantity()));
+			CatalogItem catalogItem = new CatalogItem(catalogItemEntity.getId(), catalogItemEntity.getItemNumber(),catalogItemEntity.getItemName(), catalogItemEntity.getItemType());
+			orderItems.add(new OrderItem(entity.getId(), catalogItem, entity.getStatus(), entity.getPrice(), entity.getLastUpdate(), entity.getQuantity()));
 		}
 	}
 
 	/* (non-Javadoc)
 	 * @see com.pluralsight.orderfulfillment.order.OrderService#processCreateOrderMessage(java.lang.Long)
+	 * 
+	 * Need to add @Transactional tag since this method is not invoked from the Web Page
+	 * which means the "OpenEntityManagerInViewFilter" will not work on this method.
 	 */
 	@Override
+	@org.springframework.transaction.annotation.Transactional(rollbackFor = Exception.class)
 	public String processCreateOrderMessage(Long orderId) throws Exception
 	{
 		OrderEntity orderEntity = orderRepository.findOne(orderId);

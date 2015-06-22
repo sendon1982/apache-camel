@@ -18,6 +18,8 @@
 	<properties>
 		<camel-version>2.13.2</camel-version>
 		<spring-version>4.0.5.RELEASE</spring-version>
+		
+		<activemq-version>5.10.0</activemq-version>
 	</properties>
 	
 
@@ -310,6 +312,18 @@
 			<artifactId>jaxb-impl</artifactId>
 			<version>2.2.7</version>
 		</dependency>
+		
+		<!-- ActiveMQ -->
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-pool</artifactId>
+			<version>${activemq-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-camel</artifactId>
+			<version>${activemq-version}</version>
+		</dependency>		
 
     </dependencies>
 
@@ -369,7 +383,7 @@
 				<version>1.9.1</version>
 				<executions>
 					<execution>
-						<id>add-source</id>
+						<id>add-source-id</id>
 						<phase>generate-sources</phase>
 						<goals>
 							<goal>add-source</goal>

@@ -24,5 +24,6 @@
 	<bean id="sql" class="org.apache.camel.component.sql.SqlComponent">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
+	
 
 </beans>          

@@ -55,7 +55,7 @@ public class OrderController {
    public String processOrders(Model model) {
       orderService.processOrderFulfillment();
       model.addAttribute("orders", orderService.getOrderDetails());
-      return "viewOrders";
+      return "redirect:viewOrders";
    }
 
    /**
@@ -86,7 +86,7 @@ public class OrderController {
                "An error occurred while resetting orders: " + e.getMessage(), e);
       }
       model.addAttribute("orders", orderService.getOrderDetails());
-      return "viewOrders";
+      return "redirect:viewOrders";
    }
 
    /**

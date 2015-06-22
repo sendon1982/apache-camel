@@ -10,7 +10,7 @@ public class CatalogItem implements Serializable {
    private String itemNumber;
    private String itemName;
    private String itemType;
-
+   
    public CatalogItem() {
 
    }
